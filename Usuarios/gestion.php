@@ -23,9 +23,9 @@
 				$postal=$datos->getPostal();
 				$email=$datos->getEmail();
 				$contraseña=$datos->getContraseña();
-				$sql = "INSERT INTO Zykrex.usuarios (nombre,apellidos,nac,dni,tlf,direccion,provincia,localidad,codigo_postal,email,contraseña) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+				$sql = "INSERT INTO Zykrex.usuarios (Nombre,Apellidos,Fecha_nac,DNI,Telefono,Direccion,Provincia,Localidad,Cod_postal,Email,Contraseña,Tipo) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 				$stmt= $db->prepare($sql);
-				$stmt->execute([$nombre,$apellidos,$nacimiento,$dni,$telefono,$direccion,$provincia,$localidad,$postal,$email,$contraseña]);
+				$stmt->execute([$nombre,$apellidos,$nacimiento,$dni,$telefono,$direccion,$provincia,$localidad,$postal,$email,$contraseña,"cliente"]);
 			
 			} catch(Exception $e){
 				return $e->getMessage();
@@ -54,6 +54,16 @@
 					if($contraseña == $contraseñaregistrada['contraseña']){
 						return 1;
 					}
+				}
+		}
+
+		public function definirTipo($datos){
+			$db=Db::conectar();
+			$email=$datos->getEmail();
+			$contraseña=$datos->getContraseña();
+			$select=$db->query("SELECT Tipo FROM Zykrex.usuarios where email = '$email' and contraseña = '$contraseña'");
+			foreach($select->fetchAll() as $key => $value){
+					$datos->setTipo($value[0]);
 				}
 		}
 	}

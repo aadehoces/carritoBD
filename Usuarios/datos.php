@@ -13,6 +13,7 @@
 		private $postal;
 		private $email;
 		private $contraseña;
+		private $tipo;
 		
 		function __construct(){}
 
@@ -92,6 +93,13 @@
 
    		public function getContraseña(){
 			return $this->contraseña;
+		}
+		public function setTipo($tipo){
+            $this->tipo=$tipo;
+   		}
+
+   		public function getTipo(){
+			return $this->tipo;
 		}
 
 	}

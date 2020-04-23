@@ -148,6 +148,7 @@
 				echo 'alert("Usuario registrado")';
 				echo '</script>';
 			}else{
+				echo $code;
 				$dni=$datos->getDni();
 				if ($code == "SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '".$dni."' for key 'PRIMARY'") {
 					echo "Dni ya registrado";

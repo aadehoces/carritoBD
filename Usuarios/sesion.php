@@ -11,8 +11,10 @@ $code=$gestion->emailRegistrados($datos);
 if ($code==1) {
 	$code=$gestion->verificarContra($datos);
 if ($code == 1) {
-	
-		$_SESSION['tipo']=$datos->getEmail();
+		$gestion->definirTipo($datos);
+		$_SESSION['email']=$datos->getEmail();
+		$_SESSION['contraseña']=$datos->getContraseña();
+		$_SESSION['tipo']=$datos->getTipo();
 	}else{
 		echo "Contraseña incorrecta";
 		echo "<br><a href=\"index.php\" class=\"btn btn-danger\">Volver</a>";
