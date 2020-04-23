@@ -1,3 +1,10 @@
+<?php
+ob_start();
+require_once('Global/conexion.php');
+session_start(['use_only_cookies'=>0,'use_trans_sid'=>1]);
+
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,6 +31,24 @@
 	<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
 	<meta name="theme-color" content="#ffffff">
 </head>
+<?php
+	if($_POST){
+		if ($_POST['opcion']) {
+			if ($_POST['opcion']=="Registrar") {
+				include("Usuarios/registro.php");
+
+			}
+			if ($_POST['opcion']=="Iniciar") {
+				include("Usuarios/Sesion.php");
+				
+			}
+			if ($_POST['opcion']=="Cerrar Sesion") {
+				include("Usuarios/cerrar.php");
+			}
+		}
+		
+	}
+?>
 <body>
 
 	<div class="container-fluid">
@@ -46,7 +71,7 @@
 					<div class="collapse navbar-collapse" id="collapsibleNavbar">
 						<ul class="navbar-nav nav">
 							<li class="nav-item">
-								<a class="nav-link active" href="index.php" data-toggle="tab"><span class="letra">Inicio</span></a>
+								<a class="nav-link" href="index.php" ><span class="letra">Inicio</span></a>
 						  	</li>
 						  	
 						  	<li class="nav-item dropdown">
@@ -61,12 +86,14 @@
 						      </li>
 						</ul>
 						<div class="ml-auto">
-							<div class="btn btn-primary" data-toggle="modal" data-target="#login">
-								<span class="letra">Login</span>
-							</div>
-							<div class="btn btn-primary " data-toggle="modal" data-target="#registro">
-								<span class="letra">Registro</span>
-							</div>
+							<?php
+								if (isset($_SESSION['tipo'])) {
+									include ("Templates/Cerrar_Sesion.php");
+								}else{
+									include ("Templates/Iniciar_Sesion.php");
+								}
+
+							?>
 						</div>
 					</div>
 					
@@ -76,56 +103,79 @@
 					<div class="modal-dialog modal-dialog-centered">
 						<div class="modal-content">
 							<div class="modal-header bg-primary text-white">
-								<h5 class="modal-title">Registro de usuario</h5>
-								<button type="button" class="close" data-dismiss="modal">
-									<span aria-hidden="true">X</span>
-								</button>
-							</div>
-							<form class="validar" validate>
-								<div class="modal-body">
-									<div class="form-group">
-								    	<label for="nombre">Nombre</label>
-								    	<input type="text" class="form-control" id="nombre" placeholder="Introduce tu nombre" required pattern="^([A-Z]{1}[a-z]{1,}(\s){0,})((\s)[A-Z]{1}[a-z]{1,}(\s){0,}){0,}$">
-								  	</div>
-								  	<div class="form-group">
-								    	<label for="apellidos">Apellidos</label>
-								    	<input type="text" class="form-control" id="apellidos" placeholder="Introduce tus apellidos" required
-								    	pattern="^([A-Z]{1}[a-z]{1,}(\s){0,})((\s)[A-Z]{1}[a-z]{1,}(\s){0,}){0,}$">
-								  	</div>
-									<div class="form-group">
-								    	<label for="email">Email</label>
-								    	<input type="email" class="form-control" id="email" placeholder="Introduce tu email" required pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
-							            <div class="invalid-feedback">
-							                Email Incorrecto
-							            </div>
+                    <h5 class="modal-title">Registro de usuario</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">X</span>
+                    </button>
+                </div>
+                <form action="#" method="POST">
+                    <div class="modal-body">
+                        <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="name">Nombre:</label>
+                    <input type="text" class="form-control" id="name" name="nombre">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="apellido">Apellidos:</label>
+                    <input type="text" class="form-control" id="apellido" name="apellidos">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="nac">Fecha de Nacimiento:</label>
+                    <input type="date" class="form-control" id="nac" name="nacimiento">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="dni">DNI:</label>
+                    <input type="text" class="form-control" id="dni" name="dni" placeholder="00000000-X">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="tlf">Teléfono:</label>
+                    <input type="text" class="form-control" id="tlf" name="telefono" maxlength="12"  
+                    placeholder="(+xx)xxxxxxxxx">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="dir">Dirección:</label>
+                    <input type="text" class="form-control" id="dir" name="direccion"   placeholder="Dirección, Nº">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="provincia">Provincia:</label>
+                    <input type="text" class="form-control" name="provincia" id="provincia">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="localidad">Localidad:</label>
+                    <input type="text" class="form-control" name="localidad" id="localidad">
+                </div>
+                
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="cp">Código Postal:</label>
+                    <input type="text" class="form-control" name="postal" id="cp">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="email">Email:</label>
+                    <input type="text" class="form-control" name="email" id="email">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="contraseña">Contraseña:</label>
+                    <input type="password" class="form-control" name="contraseña" id="contraseña">
+                </div>
+            </div>
 
-								  	</div>
-									<div class="form-group">
-								    	<label for="contraseña">Contraseña:</label>
-								    	<input type="password" class="form-control" id="contraseña" placeholder="Introduce tu contraseña" required pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$">
-							            <div class="invalid-feedback">
-							                La contraseña debe de contener al menos una letra mayuscula, una letra minuscula y un numero y debe de tener minimo 8 caracteres.
-							            </div>
-								  	</div>
-								   	<div class="form-inline">
-								       	<label>Sexo</label>
-								       	<div class="btn-group btn-group-toggle m-2" data-toggle="buttons" required>
-								       		<label class="btn btn-primary active">
-								       			<input type="radio" name="options" id="option1"  required> Hombre
-								       		</label>
-								       	</div>
-								       	<div class="btn-group btn-group-toggle m-2" data-toggle="buttons">
-								       		<label class="btn btn-primary">
-								       			<input type="radio" name="options" id="option2" required> Mujer
-								       		</label>
-								       	</div>
-
-								    </div>
-								</div>
-								<div class="modal-footer">
-									<input class="btn btn-primary" value="Registrar" type="submit">
-								</div>
-							</form>
+                        </div>
+                    
+                    <div class="modal-footer">
+                        <input class="btn btn-primary" value="Registrar" type="submit" name="opcion">
+                    </div>
+                </form>
 						</div>
 					</div>
 				</div>
@@ -139,11 +189,11 @@
 									<span aria-hidden="true">X</span>
 								</button>
 							</div>
-							<form class="validar" validate>
+							<form class="validar" validate action="#" method="POST">
 								<div class="modal-body">
 									<div class="form-group">
 								    	<label for="email">Email</label>
-								    	<input type="email" class="form-control" id="email" placeholder="Introduce tu email" required pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+								    	<input type="email" class="form-control" name="email" id="email" placeholder="Introduce tu email" required pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
 								    	<div class="valid-feedback">
 							                OK
 							            </div>
@@ -153,7 +203,7 @@
 								  	</div>
 									<div class="form-group">
 								    	<label for="contraseña">Contraseña:</label>
-								    	<input type="password" class="form-control" id="contraseña" placeholder="Introduce tu contraseña" required pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$">
+								    	<input type="password" class="form-control" name="contraseña" id="contraseña" placeholder="Introduce tu contraseña" required pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$">
 								    	<div class="valid-feedback">
 							                OK
 							            </div>
@@ -163,7 +213,7 @@
 								  	</div>
 								</div>
 								<div class="modal-footer">
-									<input class="btn btn-primary" value="Iniciar" type="submit">
+									<input class="btn btn-primary" value="Iniciar" type="submit" name="opcion">
 								</div>
 							</form>
 						</div>
