@@ -1,0 +1,23 @@
+.blue{
+	background-color: #3377FF;
+}
+.blue2{
+	background-color: #1D45FA;
+}
+.carousel-indicators, .carousel-control-next-icon, .carousel-control-prev-icon {
+  filter: invert(1);
+}
+.letra{
+	font-size: 1.5em;
+}
+.dropdown-item:hover{
+	background-color:#0275d8;
+}
+
+.myAlert-bottom{
+    position: fixed;
+    bottom: 0px;
+    left:2%;
+    width: 96%;
+    margin: 0;
+}
