@@ -66,5 +66,15 @@
 					$datos->setTipo($value[0]);
 				}
 		}
+
+		public function comprobarEmail($email){
+			$db=Db::conectar();
+			$select=$db->query("SELECT Email FROM Zykrex.usuarios ");
+			foreach($select->fetchAll() as $key ){
+					if ($email == $key ) {
+						return 1;
+					}
+				}
+		}
 	}
 ?>

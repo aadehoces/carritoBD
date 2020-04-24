@@ -1,7 +1,11 @@
 <?php
+// Activa el almacenamiento en búfer de la salida
 ob_start();
-require_once('Global/conexion.php');
-session_start(['use_only_cookies'=>0,'use_trans_sid'=>1]);
+//fichero de conexion a la base de datos
+include 'global/config.php';
+include 'global/conexion.php';
+//renaudamos session
+session_start();
 
 
 ?>
@@ -30,20 +34,29 @@ session_start(['use_only_cookies'=>0,'use_trans_sid'=>1]);
 	<meta name="msapplication-TileColor" content="#ffffff">
 	<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
 	<meta name="theme-color" content="#ffffff">
+	<script src="https://kit.fontawesome.com/f0417ae4ab.js" crossorigin="anonymous"></script>
 </head>
 <?php
+	//si recibimos un $_Post
 	if($_POST){
-		if ($_POST['opcion']) {
+		//si recibimos un $_Post con opcion
+		if (isset($_POST['opcion'])) {
+			//si la opcion es registrar añadimos fichero de registro
 			if ($_POST['opcion']=="Registrar") {
 				include("Usuarios/registro.php");
 
-			}
-			if ($_POST['opcion']=="Iniciar") {
+			//si la opcion es iniciar añadimos fichero de inicio de sesion
+			}elseif ($_POST['opcion']=="Iniciar") {
 				include("Usuarios/Sesion.php");
-				
-			}
-			if ($_POST['opcion']=="Cerrar Sesion") {
+			//si la opcioon es cerrar sesion añadimos fichero de cerrar sesion
+			}elseif ($_POST['opcion']=="Cerrar Sesion") {
 				include("Usuarios/cerrar.php");
+			}
+		}
+		if (isset($_POST['btnaccion'])) {
+			if ($_POST['btnaccion'] == 'Agregar') {
+
+				include("Carrito/Carrito.php");
 			}
 		}
 		
@@ -74,8 +87,9 @@ session_start(['use_only_cookies'=>0,'use_trans_sid'=>1]);
 								<a class="nav-link" href="index.php" ><span class="letra">Inicio</span></a>
 						  	</li>
 						  	
+						  	
 						  	<li class="nav-item dropdown">
-						        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						        <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 						          <span class="letra">Tienda</span>
 						        </a>
 						        <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown ">
@@ -84,11 +98,29 @@ session_start(['use_only_cookies'=>0,'use_trans_sid'=>1]);
 						          <a class="dropdown-item nav-link" href="moviles.php">Móviles</a>
 						        </div>
 						      </li>
+						      <li class="nav-item">
+								<a class="nav-link" href="mostrarCarrito.php" ><span class="letra"><i class="fas fa-shopping-cart"></i>(
+									<?php
+										if (isset($_SESSION['tipo'])) {
+											if (empty($_SESSION['tipo'])) {
+												echo 0;
+											}else{
+												$numero= count($_SESSION['CARRITO']);
+												echo $numero;
+											}
+										}else{
+											echo "login";
+										}
+									?>
+								)</span></a>
+						  	</li>
 						</ul>
 						<div class="ml-auto">
 							<?php
+								//si tenemos creada una session añadimos la plantilla de cerrar sesion que contiene un boton para cerrar session
 								if (isset($_SESSION['tipo'])) {
 									include ("Templates/Cerrar_Sesion.php");
+								//si no tenemos creada la sesion añadimos la plantilla de iniciar sesion que contine un boton para iniciar sesion y otro para registrarse
 								}else{
 									include ("Templates/Iniciar_Sesion.php");
 								}

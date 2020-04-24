@@ -119,7 +119,15 @@
 
 			$code=$validacion->validarEmail($_POST['email']);
 			if ($code==0) {
-				$datos->setEmail($_POST["email"]);
+				$code2=$gestion->comprobarEmail($_POST['email']);
+					if ($code2==1) {
+						$datos->setEmail($_POST["email"]);
+					}else{
+						echo "Su email ya ha sido registrado anteriormente";
+				echo "<br><a href=\"index.php\" class=\"btn btn-danger\">Volver</a>";
+				exit();
+					}
+				
 			}elseif ($code==1) {
 				echo "Introduzca email";
 				echo "<br><a href=\"index.php\" class=\"btn btn-danger\">Volver</a>";
@@ -148,12 +156,13 @@
 				echo 'alert("Usuario registrado")';
 				echo '</script>';
 			}else{
-				echo $code;
 				$dni=$datos->getDni();
 				if ($code == "SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '".$dni."' for key 'PRIMARY'") {
 					echo "Dni ya registrado";
 					echo "<br><a href=\"index.php\" class=\"btn btn-danger\">Volver</a>";
 					exit();
+				}else{
+					echo $code;
 				}
 				
 			}

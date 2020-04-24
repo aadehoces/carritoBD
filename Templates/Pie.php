@@ -22,29 +22,14 @@
 		  	</div>
 		</footer>
 	</div>
-	<div class="alert alert-primary alert-dismissible fade show myAlert-bottom text-center" role="alert" auto-close="8000">
-		<p>Éste sitio web usa cookies, si permanece aquí acepta su uso. Puede leer más sobre el uso de cookies en nuestra <a href="#">política de privacidad</a>.
-		</p>
-		<button type="button" class="close" data-dismiss="alert" arial-label="close">
-			<span aria-hidden="true">X</span>
-		</button>
+	
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<script type="text/javascript">
-	$(function() {
-  		var alert = $('div.alert[auto-close]');
-  		alert.each(function() {
-   			var that = $(this);
-   			var time_period = that.attr('auto-close');
-    		setTimeout(function() {
-      			that.alert('close');
-    		}, time_period);
- 		 });
-	});
-</script>
 </body>
 </html>
 <?php
+// Cierra el almacenamiento en búfer de la salida
 ob_end_flush();
 ?>

@@ -1,4 +1,5 @@
 <?php
+//añadimos la cabecera 
  include("Templates/cabecera.php")
 ?>
 <div class="row p-2">
@@ -11,21 +12,21 @@
           </ul>
          <div class="carousel-inner">
           <div class="carousel-item active text-center">
-          <img src="img/msi.jpg" alt="Msi" class="img-fluid">
+            <a href="portatiles.php"><img src="img/msi.jpg" alt="Msi" class="img-fluid"></a>
           <div class="carousel-caption text-dark pt-5">
            <h4 class="d-none d-md-block">MSI GF63 Thin 9SC-047XES</h4>
            <p class="d-none d-xl-block">Intel Corei7-9750H/16GB/512GB SSD/GTX 1650/15.6</p>
           </div>
          </div>
          <div class="carousel-item text-center">
-          <img src="img/amd.jpg" alt="AMD">
+          <a href="sobremesa.php"><img src="img/amd.jpg" alt="AMD"></a>
           <div class="carousel-caption text-dark class="img-fluid>
            <h4 class="d-none d-md-block">PcCom Silver AMD Ryzen 5</h4>
            <p class="d-none d-xl-block">16GB/240GB SSD+1TB/GTX1650</p>
           </div>
          </div>
          <div class="carousel-item text-center">
-          <img src="img/xiaomi.jpg" alt="Xiaomi" class="img-fluid">
+          <a href="moviles.php"><img src="img/xiaomi.jpg" alt="Xiaomi" class="img-fluid"></a>
           <div class="carousel-caption text-dark class="img-fluid>
            <h4 class="d-none d-md-block">Xiaomi Redmi Note 8 Pro</h4>
            <p class="d-none d-xl-block">6/128Gb Azul Libre</p>
@@ -153,6 +154,28 @@
   </div>
    </div>
   </div>
+  <div class="alert alert-primary alert-dismissible fade show myAlert-bottom text-center" role="alert" auto-close="8000">
+    <p>Éste sitio web usa cookies, si permanece aquí acepta su uso. Puede leer más sobre el uso de cookies en nuestra <a href="#">política de privacidad</a>.
+    </p>
+    <button type="button" class="close" data-dismiss="alert" arial-label="close">
+      <span aria-hidden="true">X</span>
+    </button>
+
+
+<script type="text/javascript">
+  //Funcion para cerrar notificacion de cookies en unos segundos
+  $(function() {
+      var alert = $('div.alert[auto-close]');
+      alert.each(function() {
+        var that = $(this);
+        var time_period = that.attr('auto-close');
+        setTimeout(function() {
+            that.alert('close');
+        }, time_period);
+     });
+  });
+</script>
 <?php
+//añadimos el pie de página
  include("Templates/Pie.php")
 ?>

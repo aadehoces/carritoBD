@@ -1,20 +1,40 @@
 <?php
+//añadimos la cabecera 
  include("Templates/cabecera.php")
 ?>
 <div class="row">
 	<?php
-		
-	?>
-<div class="col-md-4 col-sm-6 p-2">
-<img src="img/sobremesa1.jpg" class="img-fluid">
-<div class="bg-light p-2 rounded">
-<h5>PcCom Silver AMD Ryzen 5 2600/16GB/240GB SSD+1TB/GTX1650</h5>
-<p>Precio: 673,58€</p>
-<button class="btn btn-primary" >Comprar</button>
-</div> 
-</div>
+		$db=Db::conectar();
+		//$select=$db->query("SELECT Tipo FROM Zykrex.usuarios where email = '$email' and contraseña = '$contraseña'");
+            $sentencia=$db->prepare("SELECT * FROM productos where categoria = 'Sobremesa'");
+            $sentencia->execute();
+            $listaProductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
+           // print_r($listaProductos);
+       ?>
+     <?php foreach($listaProductos as $producto){ ?>
+	<div class="col-md-4 col-sm-6 p-2">
+		<img src="<?php echo $producto['Imagen'] ?>" class="img-fluid">
+		<div class="bg-light p-2 rounded">
+			<h4><?php echo $producto['Nombre'] ?></h4>
+			<h5><?php echo $producto['Descripcion'] ?></h5>
+			<p>Precio: <?php echo $producto['Precio'] ?>€</p>
+			<form method="post" action="">
+				<input type="hidden" name="id" id="id" value="<?php echo openssl_encrypt($producto['id_Productos'],COD,KEY); ?>">
+				<input type="hidden" name="nombre" id="nombre" value="<?php echo openssl_encrypt($producto['Nombre'],COD,KEY); ?>">
+				<input type="hidden" name="precio" id="precio" value="<?php echo openssl_encrypt($producto['Precio'],COD,KEY); ?>">
+				<label>Cantidad: </label>
+				<input type="number" name="cantidad" id="cantidad" min="1" max="10" size="1" required value="1">
+				<br>
+				<button class="btn btn-primary mt-2" name="btnaccion" value="Agregar" type="submit">Añadir a la cesta </button>
+			</form>
+				
+		</div> 
+	</div>
+<?php } ?>
+
 							
 </div>
 <?php
+//añadimos el pie de página
  include("Templates/Pie.php")
 ?>
