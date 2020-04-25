@@ -102,14 +102,23 @@ session_start();
 								<a class="nav-link" href="mostrarCarrito.php" ><span class="letra"><i class="fas fa-shopping-cart"></i>(
 									<?php
 										if (isset($_SESSION['tipo'])) {
-											if (empty($_SESSION['tipo'])) {
+											if (empty($_SESSION['CARRITO'])) {
 												echo 0;
 											}else{
 												$numero= count($_SESSION['CARRITO']);
 												echo $numero;
 											}
 										}else{
-											echo "login";
+											
+											if (!isset($_COOKIE['CARRITO'])) {
+												echo 0;
+											}else{
+												$data=unserialize($_COOKIE['CARRITO'],["allowed_classes" => true]);
+												foreach($data as $indice=>$producto){
+													$numero = $indice;
+												}
+												echo $numero+1;
+											}
 										}
 									?>
 								)</span></a>

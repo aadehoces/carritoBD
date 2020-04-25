@@ -11,6 +11,11 @@ $code=$gestion->emailRegistrados($datos);
 if ($code==1) {
 	$code=$gestion->verificarContra($datos);
 if ($code == 1) {
+		if (!empty($_COOKIES['CARRITO'])) {
+			echo 'lleno';
+		}else{
+			echo "vacio";
+		}
 		$gestion->definirTipo($datos);
 		$_SESSION['email']=$datos->getEmail();
 		$_SESSION['contraseña']=$datos->getContraseña();

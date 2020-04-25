@@ -1,4 +1,5 @@
 <?php
+
 $mensaje="";
 if(is_numeric(openssl_decrypt($_POST['id'],COD,KEY))){
 	$ID=openssl_decrypt($_POST['id'],COD,KEY);
@@ -25,6 +26,7 @@ if(is_numeric(openssl_decrypt($_POST['precio'],COD,KEY))){
 	$CANTIDAD=$_POST['cantidad'];
 }
 if(isset($_SESSION['tipo'])){
+	echo "sesion";
 	if(!isset($_SESSION['CARRITO'])){
 		$producto=array(
 			'ID'=>$ID,
@@ -62,21 +64,23 @@ if(isset($_SESSION['tipo'])){
 		};
 	}
 }else{
-	if (!isset($_COOKIE['CARRITO'])) {
-		
-		$producto=array(
+	echo "cookies";
+	if (empty($_COOKIE['CARRITO'])) {
+		$data=array();
+		$data[0]=array(
 			'ID'=>$ID,
 			'NOMBRE'=>$NOMBRE,
 			'CANTIDAD'=>$CANTIDAD,
 			'PRECIO'=>$PRECIO,
 		);
-		$_COOKIE['CARRITO'][0]=$producto;
-		setcookie('CARRITO',serialize($producto),time()+30000);
+		
+		setcookie('CARRITO',serialize($data),time()+30000,"/");
 	}else{
-		$data=unserialize($_COOKIE['CARRITO'])
+		$data=unserialize($_COOKIE['CARRITO'],["allowed_classes" => false]);
+		setcookie('CARRITO',serialize($data),time()-30000);
 		$idProductos=array_column($data,"ID");
 		if(in_array($ID,$idProductos)){
-			foreach($_COOKIE['CARRITO'] as $indice=>$producto){
+			foreach($data as $indice=>$producto){
 				if ($producto['ID'] == $ID) {
 					$CANTIDAD=$producto['CANTIDAD'] + $CANTIDAD;
 					$producto=array(
@@ -86,27 +90,23 @@ if(isset($_SESSION['tipo'])){
 						'PRECIO'=>$PRECIO,
 					);
 					$data[$indice]=$producto;
-					setcookie('CARRITO',serialize($data),time()+30000);	
+					setcookie('CARRITO',serialize($data),time()+30000,"/");	
 				}
 			}
 		}else{
-			$numeroProductos=count($_COOKIE['CARRITO']);
-			$producto=array(
+			$numeroProductos=count($data);
+			$data[$numeroProductos]=array(
 				'ID'=>$ID,
 				'NOMBRE'=>$NOMBRE,
 				'CANTIDAD'=>$CANTIDAD,
 				'PRECIO'=>$PRECIO,
-			);
-			$_COOKIE['CARRITO'][$numeroProductos]=$producto;
+			);;
+			
+			setcookie('CARRITO',serialize($data),time()+30000,"/");	
 			$mensaje="Producto agregado al carrito";
-
 		};
 		
 	}
-	foreach($_COOKIE['CARRITO'] as $indice=>$producto){
-				echo $producto['ID'];
-			}
-
 }
 
 ?>

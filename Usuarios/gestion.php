@@ -61,7 +61,7 @@
 			$db=Db::conectar();
 			$email=$datos->getEmail();
 			$contraseña=$datos->getContraseña();
-			$select=$db->query("SELECT Tipo FROM Zykrex.usuarios where email = '$email' and contraseña = '$contraseña'");
+			$select=$db->query("SELECT Descripcion FROM Zykrex.usuarios join zykrex.rol using (id_Rol) where email = '$email' and contraseña = '$contraseña'");
 			foreach($select->fetchAll() as $key => $value){
 					$datos->setTipo($value[0]);
 				}
