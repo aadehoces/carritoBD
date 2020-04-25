@@ -76,8 +76,8 @@ if(isset($_SESSION['tipo'])){
 		
 		setcookie('CARRITO',serialize($data),time()+30000,"/");
 	}else{
-		$data=unserialize($_COOKIE['CARRITO'],["allowed_classes" => false]);
-		setcookie('CARRITO',serialize($data),time()-30000);
+		$data=unserialize($_COOKIE['CARRITO'],["allowed_classes" => true]);
+		setcookie('CARRITO',serialize($data),time()-30000,"/");
 		$idProductos=array_column($data,"ID");
 		if(in_array($ID,$idProductos)){
 			foreach($data as $indice=>$producto){

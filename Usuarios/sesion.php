@@ -11,10 +11,10 @@ $code=$gestion->emailRegistrados($datos);
 if ($code==1) {
 	$code=$gestion->verificarContra($datos);
 if ($code == 1) {
-		if (!empty($_COOKIES['CARRITO'])) {
-			echo 'lleno';
-		}else{
-			echo "vacio";
+		if (isset($_COOKIE['CARRITO'])) {
+			$data=unserialize($_COOKIE['CARRITO'],["allowed_classes" => true]);
+			$_SESSION['CARRITO']=$data;
+			setcookie('CARRITO',"",time()-30000,"/");
 		}
 		$gestion->definirTipo($datos);
 		$_SESSION['email']=$datos->getEmail();

@@ -111,13 +111,19 @@ session_start();
 										}else{
 											
 											if (!isset($_COOKIE['CARRITO'])) {
+												
 												echo 0;
 											}else{
 												$data=unserialize($_COOKIE['CARRITO'],["allowed_classes" => true]);
-												foreach($data as $indice=>$producto){
-													$numero = $indice;
+												if (empty($data)) {
+													echo 0;
+												}else{
+													
+													foreach($data as $indice=>$producto){
+														$numero = $indice;
+													}
+													echo $numero+1;
 												}
-												echo $numero+1;
 											}
 										}
 									?>
@@ -149,7 +155,7 @@ session_start();
                         <span aria-hidden="true">X</span>
                     </button>
                 </div>
-                <form action="#" method="POST">
+                <form action="Carrito/botones.php" method="POST">
                     <div class="modal-body">
                         <div class="form-row">
                 <div class="form-group col-md-6">
@@ -230,7 +236,7 @@ session_start();
 									<span aria-hidden="true">X</span>
 								</button>
 							</div>
-							<form class="validar" validate action="#" method="POST">
+							<form class="validar" validate action="#" method="POST" action="Carrito/botones.php">
 								<div class="modal-body">
 									<div class="form-group">
 								    	<label for="email">Email</label>
