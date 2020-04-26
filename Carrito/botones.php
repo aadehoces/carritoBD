@@ -1,7 +1,8 @@
 <?php
+ob_start();
 session_start();
-include '../global/config.php';
-include '../global/conexion.php';
+include '../Global/config.php';
+include '../Global/conexion.php';
 	//si recibimos un $_Post
 	if($_POST){
 		//si recibimos un $_Post con opcion
@@ -29,11 +30,11 @@ if (isset($_POST['btnaccion'])) {
 		include("Carrito.php");
 		$CATEGORIA=openssl_decrypt($_POST['categoria'],COD,KEY);
 		if($CATEGORIA == "Sobremesa"){
-			header('location: ../sobremesa.php');
+			header("Location:".$_SERVER['HTTP_REFERER']);
 		}elseif ($CATEGORIA == "Portatil") {
-			header('location: ../Portatiles.php');
+			header("Location:".$_SERVER['HTTP_REFERER']);
 		}elseif ($CATEGORIA == "Movil") {
-			header('location: ../moviles.php');
+			header("Location:".$_SERVER['HTTP_REFERER']);
 		}
 		
 	}elseif ($_POST['btnaccion'] == 'Eliminar') {
@@ -41,5 +42,5 @@ if (isset($_POST['btnaccion'])) {
 		header("Location:".$_SERVER['HTTP_REFERER']);
 	}
 }
-	
+ob_end_flush();
 ?>

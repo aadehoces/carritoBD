@@ -1,12 +1,12 @@
 <?php
 //añadimos la cabecera 
- include("Templates/cabecera.php")
+ include("Templates/Cabecera.php")
 ?>
 <div class="row">
 	<?php
 		$db=Db::conectar();
 		//$select=$db->query("SELECT Tipo FROM Zykrex.usuarios where email = '$email' and contraseña = '$contraseña'");
-            $sentencia=$db->prepare("SELECT * FROM productos where categoria = 'Sobremesa'");
+            $sentencia=$db->prepare("SELECT * FROM " .BD.".Productos where categoria = 'Sobremesa'");
             $sentencia->execute();
             $listaProductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
            // print_r($listaProductos);

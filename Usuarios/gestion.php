@@ -23,7 +23,7 @@
 				$postal=$datos->getPostal();
 				$email=$datos->getEmail();
 				$contraseña=$datos->getContraseña();
-				$sql = "INSERT INTO Zykrex.usuarios (Nombre,Apellidos,Fecha_nac,DNI,Telefono,Direccion,Provincia,Localidad,Cod_postal,Email,Contraseña,Tipo) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+				$sql = "INSERT INTO" .BD.".usuarios (Nombre,Apellidos,Fecha_nac,DNI,Telefono,Direccion,Provincia,Localidad,Cod_postal,Email,Contraseña,Tipo) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 				$stmt= $db->prepare($sql);
 				$stmt->execute([$nombre,$apellidos,$nacimiento,$dni,$telefono,$direccion,$provincia,$localidad,$postal,$email,$contraseña,"cliente"]);
 			
@@ -37,9 +37,9 @@
 			$email=$datos->getEmail();
 			$db=Db::conectar();
 			$listaLibros=[];
-			$select=$db->query('SELECT email FROM Zykrex.usuarios');
+			$select=$db->query("SELECT Email FROM " .BD.".usuarios");
 	 			foreach($select->fetchAll() as $emailegistrado){
-					if($email == $emailegistrado['email']){
+					if($email == $emailegistrado['Email']){
 					return 1;
 				}
 			}
@@ -49,9 +49,9 @@
 			$db=Db::conectar();
 			$email=$datos->getEmail();
 			$contraseña=$datos->getContraseña();
-			$select=$db->query("SELECT contraseña FROM Zykrex.usuarios where email = '$email'");
+			$select=$db->query("SELECT Contraseña FROM " .BD.".usuarios where email = '$email'");
 	 			foreach($select->fetchAll() as $contraseñaregistrada){
-					if($contraseña == $contraseñaregistrada['contraseña']){
+					if($contraseña == $contraseñaregistrada['Contraseña']){
 						return 1;
 					}
 				}
@@ -61,7 +61,7 @@
 			$db=Db::conectar();
 			$email=$datos->getEmail();
 			$contraseña=$datos->getContraseña();
-			$select=$db->query("SELECT Descripcion FROM Zykrex.usuarios join zykrex.rol using (id_Rol) where email = '$email' and contraseña = '$contraseña'");
+			$select=$db->query("SELECT Descripcion FROM " .BD.".usuarios join " .BD.".Rol using (id_Rol) where email = '$email' and contraseña = '$contraseña'");
 			foreach($select->fetchAll() as $key => $value){
 					$datos->setTipo($value[0]);
 				}
@@ -69,7 +69,7 @@
 
 		public function comprobarEmail($email){
 			$db=Db::conectar();
-			$select=$db->query("SELECT Email FROM Zykrex.usuarios ");
+			$select=$db->query("SELECT Email FROM " .BD.".usuarios ");
 			foreach($select->fetchAll() as $key ){
 					if ($email == $key ) {
 						return 1;

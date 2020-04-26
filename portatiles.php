@@ -1,10 +1,11 @@
 <?php
 //añadimos la cabecera 
- include("Templates/cabecera.php")
+ include("Templates/Cabecera.php")
 ?>
+<div class="row">
 <?php
 	$db=Db::conectar();
-	$sentencia=$db->prepare("SELECT * FROM productos where categoria = 'Portatil'");
+	$sentencia=$db->prepare("SELECT * FROM " .BD.".Productos where categoria = 'Portatil'");
 	$sentencia->execute();
 	$listaProductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -29,6 +30,9 @@
 		</div> 
 	</div>
 <?php } ?>
+
+							
+</div>
 <?php
 //añadimos el pie de página
  include("Templates/Pie.php")

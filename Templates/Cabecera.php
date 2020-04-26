@@ -2,8 +2,8 @@
 // Activa el almacenamiento en búfer de la salida
 ob_start();
 //fichero de conexion a la base de datos
-include 'global/config.php';
-include 'global/conexion.php';
+include 'Global/config.php';
+include 'Global/conexion.php';
 //renaudamos session
 session_start();
 
@@ -47,7 +47,7 @@ session_start();
 
 			//si la opcion es iniciar añadimos fichero de inicio de sesion
 			}elseif ($_POST['opcion']=="Iniciar") {
-				include("Usuarios/Sesion.php");
+				include("Usuarios/sesion.php");
 			//si la opcioon es cerrar sesion añadimos fichero de cerrar sesion
 			}elseif ($_POST['opcion']=="Cerrar Sesion") {
 				include("Usuarios/cerrar.php");
@@ -129,12 +129,23 @@ session_start();
 									?>
 								)</span></a>
 						  	</li>
+						  	<?php
+						  	if (isset($_SESSION['tipo'])) {
+						  		if ($_SESSION['tipo']=="Administrador") {?>
+						  			<li class="nav-item">
+										<a class="nav-link" href="administracion.php" ><span class="letra">
+										Administracion</span></a>
+						  			</li>
+						  		<?php }
+						  	}
+						  	?>
+						  	
 						</ul>
 						<div class="ml-auto">
 							<?php
 								//si tenemos creada una session añadimos la plantilla de cerrar sesion que contiene un boton para cerrar session
 								if (isset($_SESSION['tipo'])) {
-									include ("Templates/Cerrar_Sesion.php");
+									include ("Templates/Cerrar_sesion.php");
 								//si no tenemos creada la sesion añadimos la plantilla de iniciar sesion que contine un boton para iniciar sesion y otro para registrarse
 								}else{
 									include ("Templates/Iniciar_Sesion.php");

@@ -1,11 +1,12 @@
 <?php
 //añadimos la cabecera 
- include("Templates/cabecera.php")
+ include("Templates/Cabecera.php")
 ?>
+<div class="row">
 <?php
 		$db=Db::conectar();
 		//$select=$db->query("SELECT Tipo FROM Zykrex.usuarios where email = '$email' and contraseña = '$contraseña'");
-			$sentencia=$db->prepare("SELECT * FROM productos where categoria = 'Movil'");
+			$sentencia=$db->prepare("SELECT * FROM " .BD.".Productos where categoria = 'Movil'");
 			$sentencia->execute();
 			$listaProductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
 		   // print_r($listaProductos);
@@ -29,8 +30,11 @@
 				</form>
 				
 			</div> 
-		</div>
-	<?php } ?>
+	</div>
+<?php } ?>
+
+							
+</div>
 <?php
 //añadimos el pie de página
  include("Templates/Pie.php")

@@ -1,6 +1,6 @@
 <?php
 //añadimos la cabecera 
- include("Templates/cabecera.php")
+ include("Templates/Cabecera.php")
 ?>
 <div class="row p-2">
     <div class="col-md-8">
