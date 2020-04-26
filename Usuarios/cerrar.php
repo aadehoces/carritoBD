@@ -1,6 +1,7 @@
 <?php
-
+	//comprobamos si el carrito está declarado
 	if (isset($_SESSION['CARRITO'])) {
+		//si está declarado guardamos el contenido en una cookie
 		setcookie('CARRITO',serialize($_SESSION['CARRITO']),time()+30000,"/");
 	}
 	//destruimos sesion

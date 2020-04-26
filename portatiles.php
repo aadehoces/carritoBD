@@ -22,11 +22,10 @@
 				<input type="hidden" name="precio" id="precio" value="<?php echo openssl_encrypt($producto['Precio'],COD,KEY); ?>">
 				<input type="hidden" name="categoria" id="Categoria" value="<?php echo openssl_encrypt($producto['Categoria'],COD,KEY); ?>">
 				<label>Cantidad: </label>
-				<input type="number" name="cantidad" min="1" max="10" size="1" required value="1">
+				<input type="number" name="cantidad" id="cantidad" min="1" max="10" size="1" required value="1">
 				<br>
 				<button class="btn btn-primary mt-2" name="btnaccion" value="Agregar" type="submit">Añadir a la cesta </button>
-			</form>
-				
+			</form>	
 		</div> 
 	</div>
 <?php } ?>

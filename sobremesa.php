@@ -3,15 +3,13 @@
  include("Templates/Cabecera.php")
 ?>
 <div class="row">
-	<?php
-		$db=Db::conectar();
-		//$select=$db->query("SELECT Tipo FROM Zykrex.usuarios where email = '$email' and contraseña = '$contraseña'");
-            $sentencia=$db->prepare("SELECT * FROM " .BD.".Productos where categoria = 'Sobremesa'");
-            $sentencia->execute();
-            $listaProductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
-           // print_r($listaProductos);
-       ?>
-     <?php foreach($listaProductos as $producto){ ?>
+<?php
+	$db=Db::conectar();
+	$sentencia=$db->prepare("SELECT * FROM " .BD.".Productos where categoria = 'Sobremesa'");
+	$sentencia->execute();
+	$listaProductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
+?>
+<?php foreach($listaProductos as $producto){ ?>
 	<div class="col-md-4 col-sm-6 p-2">
 		<img src="<?php echo $producto['Imagen'] ?>" class="img-fluid">
 		<div class="bg-light p-2 rounded">
@@ -28,7 +26,6 @@
 				<br>
 				<button class="btn btn-primary mt-2" name="btnaccion" value="Agregar" type="submit">Añadir a la cesta </button>
 			</form>
-				
 		</div> 
 	</div>
 <?php } ?>

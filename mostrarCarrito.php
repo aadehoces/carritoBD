@@ -4,9 +4,12 @@
 ?>
 <h3>Productos</h3>
 <?php
+//se comprueba si está logueado para mostrarle el carrito de su sesion
 	if (isset($_SESSION['tipo'])) {
+		//se comprueba si está vacio
 		if(!empty($_SESSION['CARRITO'])){?>
-			<?php $total=0;?>
+			<?php $total=0;
+			//si no está vacio se muestra los productos?>
 			<table class="table text-center table-striped">
 			  <thead class="thead-dark">
 				<tr>
@@ -39,12 +42,18 @@
 			</table>
 <?php        
 		}else{
+			//si está vacio se muestra lo siguiente
 			echo "No hay prductos en el carrito";
 		}
 	}else{
+		//si no ha iniciado session se realiza lo siguiente
+		//se comprueba si está creada la cookie carrito
 		if (isset($_COOKIE['CARRITO'])) {
+			//si está creada se guarda los datos en al variable data
 			$data=unserialize($_COOKIE['CARRITO'],["allowed_classes" => true]);
+			//si hay contenido se muestran los productos
 			if (!empty($data)) {?>
+
 				<?php $total=0;?>
 				<table class="table text-center table-striped">
 				  <thead class="thead-dark">
@@ -82,10 +91,12 @@
 					Inicia Sesión para pagar...
 				</div>
 	<?php    	}else{
-				echo "No hay prductos en el carrito";
-			}
+				//si no hay productos en la cookie carrito se muestra lo siguiente:
+					echo "No hay prductos en el carrito";
+				}
 		}else{
-				echo "No hay prductos en el carrito";
+			//si la cookie carrito no está creada se muestra lo siguiente:
+			echo "No hay prductos en el carrito";
 		}
 	}
 ?>
