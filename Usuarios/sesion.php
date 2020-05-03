@@ -33,13 +33,17 @@ if ($code==1) {
 		//se guarda el tipo en la variable de session tipo
 		$_SESSION['tipo']=$datos->getTipo();
 	}else{
-		echo "Contraseña incorrecta";
-		echo "<br><a href=\"index.php\" class=\"btn btn-danger\">Volver</a>";
+		//si la contraseña es incorrecta
+		$mensaje= "Contraseña incorrecta";
+		setcookie('mensaje',$mensaje,"","/");
+		header("Location:".$_SERVER['HTTP_REFERER']);
 		exit();
 	}
 }else{
-	echo "Email no registrado";
-	echo "<br><a href=\"index.php\" class=\"btn btn-danger\">Volver</a>";
+	//si el email es incorrecto
+	$mensaje= "Email no registrado";
+	setcookie('mensaje',$mensaje,"","/");
+	header("Location:".$_SERVER['HTTP_REFERER']);
 	exit();
 }
 ?>

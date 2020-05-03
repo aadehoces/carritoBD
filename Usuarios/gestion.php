@@ -1,6 +1,5 @@
 <?php
 	
-
 	class gestion 
 	{
 		
@@ -23,9 +22,9 @@
 				$postal=$datos->getPostal();
 				$email=$datos->getEmail();
 				$contraseña=$datos->getContraseña();
-				$sql = "INSERT INTO" .BD.".usuarios (Nombre,Apellidos,Fecha_nac,DNI,Telefono,Direccion,Provincia,Localidad,Cod_postal,Email,Contraseña,Tipo) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+				$sql = "INSERT INTO " .BD.".usuarios (DNI,Nombre,Apellidos,Fecha_nac,Telefono,Direccion,Provincia,Localidad,Cod_postal,Email,Contraseña,id_Rol) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 				$stmt= $db->prepare($sql);
-				$stmt->execute([$nombre,$apellidos,$nacimiento,$dni,$telefono,$direccion,$provincia,$localidad,$postal,$email,$contraseña,"cliente"]);
+				$stmt->execute([$dni, $nombre,$apellidos,$nacimiento,$telefono,$direccion,$provincia,$localidad,$postal,$email,$contraseña,1]);
 			
 			} catch(Exception $e){
 				return $e->getMessage();
@@ -36,7 +35,6 @@
 		public function emailRegistrados($datos){
 			$email=$datos->getEmail();
 			$db=Db::conectar();
-			$listaLibros=[];
 			$select=$db->query("SELECT Email FROM " .BD.".usuarios");
 	 			foreach($select->fetchAll() as $emailegistrado){
 					if($email == $emailegistrado['Email']){
@@ -71,7 +69,25 @@
 			$db=Db::conectar();
 			$select=$db->query("SELECT Email FROM " .BD.".usuarios ");
 			foreach($select->fetchAll() as $key ){
-					if ($email == $key ) {
+					if ($email == $key[0] ) {
+						return 1;
+					}
+				}
+		}
+		public function comprobarEmailActu($email,$dni){
+			$db=Db::conectar();
+			$select=$db->query("SELECT Email FROM " .BD.".usuarios where not DNI ='$dni' ");
+			foreach($select->fetchAll() as $key ){
+					if ($email == $key[0] ) {
+						return 1;
+					}
+				}
+		}
+		public function comprobarDni($dni){
+			$db=Db::conectar();
+			$select=$db->query("SELECT DNI FROM " .BD.".usuarios ");
+			foreach($select->fetchAll() as $key ){
+					if ($dni == $key[0] ) {
 						return 1;
 					}
 				}

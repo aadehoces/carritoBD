@@ -101,7 +101,7 @@
 			if (empty($telefono)) {
 				return 1;
 			} else {
-				if(preg_match('(^(\+[0-9]{1,2})?([0-9]{9})\b)', $telefono)){
+				if(preg_match('(^([0-9]{9})\b)', $telefono)){
 					return 0;
 				}else{
 					return 2;

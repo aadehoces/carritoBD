@@ -178,7 +178,7 @@ session_start();
 				<div class="form-group col-md-6">
 					<label for="tlf">Teléfono:</label>
 					<input type="text" class="form-control" id="tlf" name="telefono" maxlength="12"  
-					placeholder="(+xx)xxxxxxxxx">
+					placeholder="xxxxxxxxx">
 				</div>
 				<div class="form-group col-md-6">
 					<label for="dir">Dirección:</label>
@@ -263,4 +263,23 @@ session_start();
 						</div>
 					</div>
 				</div>
+				<?php 
+				//si tenemos la cookie mensaje lo mostramos en un alert y borramos la cookie
+				if (isset($_COOKIE['mensaje']) && !empty($_COOKIE['mensaje']) ) {?>
+					<div class="alert alert-danger" role="alert">
+		  				<?php echo $_COOKIE['mensaje']; 
+		  				setcookie('mensaje',"",time()-1,"/");;
+		  				?>
+					</div>
+			
+				<?php } 
+				//si tenemos la cookie success lo mostramos en un alert y borramos la cookie
+				if (isset($_COOKIE['success']) && !empty($_COOKIE['success']) ) {?>
+					<div class="alert alert-success" role="alert">
+		  				<?php echo $_COOKIE['success']; 
+		  				setcookie('success',"",time()-1,"/");;
+		  				?>
+					</div>
+			
+				<?php } ?>
 				<div class="container">

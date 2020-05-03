@@ -12,13 +12,16 @@
 			$code=$validacion->validarNombre($_POST["nombre"]);
 			if ($code==0) {
 				$datos->setNombre($_POST["nombre"]);
+				
 			}elseif ($code==1) {
-				echo "Introduzca nombre";
-				echo "<br><a href=\"index.php\" class=\"btn btn-danger\">Volver</a>";
+				$mensaje= "Introduzca nombre";
+				setcookie('mensaje',$mensaje,"","/");
+				header("Location:".$_SERVER['HTTP_REFERER']);
 				exit();
 			}elseif ($code==2) {
-				echo "Su nombre no está bien escrito";
-				echo "<br><a href=\"index.php\" class=\"btn btn-danger\">Volver</a>";
+				$mensaje= "Su nombre no está bien escrito";
+				setcookie('mensaje',$mensaje,"","/");
+				header("Location:".$_SERVER['HTTP_REFERER']);
 				exit();
 			}
 			/*se valida los apellidos si devuelve codigo 0: se guarda los apellidos
@@ -28,18 +31,21 @@
 			if ($code==0) {
 				$datos->setApellidos($_POST["apellidos"]);
 			}elseif ($code==1) {
-				echo "Introduzca apellidos";
-				echo "<br><a href=\"index.php\" class=\"btn btn-danger\">Volver</a>";
+				$mensaje= "Introduzca apellidos";
+				setcookie('mensaje',$mensaje,"","/");
+				header("Location:".$_SERVER['HTTP_REFERER']);
 				exit();
 			}elseif ($code==2) {
-				echo "Su apellidos no están bien escritos";
-				echo "<br><a href=\"index.php\" class=\"btn btn-danger\">Volver</a>";
+				$mensaje= "Su apellidos no están bien escritos";
+				setcookie('mensaje',$mensaje,"","/");
+				header("Location:".$_SERVER['HTTP_REFERER']);
 				exit();
 			}
 			//Si la fecha de nacimieto está vacia, se la pide, si no se guarda.
 			if (empty($_POST['nacimiento'])) {
-				echo "Introduzca fecha de nacimiento";
-				echo "<br><a href=\"index.php\" class=\"btn btn-danger\">Volver</a>";
+				$mensaje= "Introduzca fecha de nacimiento";
+				setcookie('mensaje',$mensaje,"","/");
+				header("Location:".$_SERVER['HTTP_REFERER']);
 				exit();
 			}else{
 				$datos->setNacimiento($_POST["nacimiento"]);
@@ -49,14 +55,26 @@
 				si el codigo es 2: El DNI no cumple los requisitos*/
 			$code=$validacion->validarDni($_POST['dni']);
 			if ($code==0) {
-				$datos->setDni($_POST["dni"]);
+				$code2=$gestion->comprobarDni($_POST['dni']);
+					if ($code2==1) {
+						$mensaje= "Su dni ya ha sido registrado anteriormente";
+						setcookie('mensaje',$mensaje,"","/");
+						header("Location:".$_SERVER['HTTP_REFERER']);
+						exit();
+					}else{
+						
+						$datos->setDni($_POST["dni"]);
+				
+					}
 			}elseif ($code==1) {
-				echo "Introduzca dni";
-				echo "<br><a href=\"index.php\" class=\"btn btn-danger\">Volver</a>";
+				$mensaje= "Introduzca dni";
+				setcookie('mensaje',$mensaje,"","/");
+				header("Location:".$_SERVER['HTTP_REFERER']);
 				exit();
 			}elseif ($code==2) {
-				echo "Su dni no está bien escrito";
-				echo "<br><a href=\"index.php\" class=\"btn btn-danger\">Volver</a>";
+				$mensaje= "Su dni no está bien escrito";
+				setcookie('mensaje',$mensaje,"","/");
+				header("Location:".$_SERVER['HTTP_REFERER']);
 				exit();
 			}
 
@@ -67,12 +85,14 @@
 			if ($code==0) {
 				$datos->setTelefono($_POST["telefono"]);
 			}elseif ($code==1) {
-				echo "Introduzca telefono";
-				echo "<br><a href=\"index.php\" class=\"btn btn-danger\">Volver</a>";
+				$mensaje= "Introduzca telefono";
+				setcookie('mensaje',$mensaje,"","/");
+				header("Location:".$_SERVER['HTTP_REFERER']);
 				exit();
 			}elseif ($code==2) {
-				echo "Su telefono no está bien escrito";
-				echo "<br><a href=\"index.php\" class=\"btn btn-danger\">Volver</a>";
+				$mensaje= "Su telefono no está bien escrito";
+				setcookie('mensaje',$mensaje,"","/");
+				header("Location:".$_SERVER['HTTP_REFERER']);
 				exit();
 			}
 
@@ -83,12 +103,14 @@
 			if ($code==0) {
 				$datos->setDireccion($_POST["direccion"]);
 			}elseif ($code==1) {
-				echo "Introduzca direccion";
-				echo "<br><a href=\"index.php\" class=\"btn btn-danger\">Volver</a>";
+				$mensaje= "Introduzca direccion";
+				setcookie('mensaje',$mensaje,"","/");
+				header("Location:".$_SERVER['HTTP_REFERER']);
 				exit();
 			}elseif ($code==2) {
-				echo "Su dirección no está bien escrito";
-				echo "<br><a href=\"index.php\" class=\"btn btn-danger\">Volver</a>";
+				$mensaje= "Su dirección no está bien escrito";
+				setcookie('mensaje',$mensaje,"","/");
+				header("Location:".$_SERVER['HTTP_REFERER']);
 				exit();
 			}
 
@@ -99,12 +121,14 @@
 			if ($code==0) {
 				$datos->setProvincia($_POST["provincia"]);
 			}elseif ($code==1) {
-				echo "Introduzca provincia";
-				echo "<br><a href=\"index.php\" class=\"btn btn-danger\">Volver</a>";
+				$mensaje= "Introduzca provincia";
+				setcookie('mensaje',$mensaje,"","/");
+				header("Location:".$_SERVER['HTTP_REFERER']);
 				exit();
 			}elseif ($code==2) {
-				echo "Su provincia no está bien escrita";
-				echo "<br><a href=\"index.php\" class=\"btn btn-danger\">Volver</a>";
+				$mensaje= "Su provincia no está bien escrita";
+				setcookie('mensaje',$mensaje,"","/");
+				header("Location:".$_SERVER['HTTP_REFERER']);
 				exit();
 			}
 
@@ -115,12 +139,14 @@
 			if ($code==0) {
 				$datos->setLocalidad($_POST["localidad"]);
 			}elseif ($code==1) {
-				echo "Introduzca localidad";
-				echo "<br><a href=\"index.php\" class=\"btn btn-danger\">Volver</a>";
+				$mensaje= "Introduzca localidad";
+				setcookie('mensaje',$mensaje,"","/");
+				header("Location:".$_SERVER['HTTP_REFERER']);
 				exit();
 			}elseif ($code==2) {
-				echo "Su localidad no está bien escrita";
-				echo "<br><a href=\"index.php\" class=\"btn btn-danger\">Volver</a>";
+				$mensaje= "Su localidad no está bien escrita";
+				setcookie('mensaje',$mensaje,"","/");
+				header("Location:".$_SERVER['HTTP_REFERER']);
 				exit();
 			}
 			/*se valida el codigo postal si devuelve codigo 0: se guarda el codigo postal
@@ -130,8 +156,9 @@
 			if ($code==0) {
 				$datos->setPostal($_POST["postal"]);
 			}elseif ($code==1) {
-				echo "Introduzca codigo postal";
-				echo "<br><a href=\"index.php\" class=\"btn btn-danger\">Volver</a>";
+				$mensaje= "Introduzca codigo postal";
+				setcookie('mensaje',$mensaje,"","/");
+				header("Location:".$_SERVER['HTTP_REFERER']);
 				exit();
 			}elseif ($code==2) {
 				echo "Su codigo postal no está bien escrito";
@@ -145,20 +172,25 @@
 			if ($code==0) {
 				$code2=$gestion->comprobarEmail($_POST['email']);
 					if ($code2==1) {
-						$datos->setEmail($_POST["email"]);
+						$mensaje= "Su email ya ha sido registrado anteriormente";
+						setcookie('mensaje',$mensaje,"","/");
+						header("Location:".$_SERVER['HTTP_REFERER']);
+						exit();
 					}else{
-						echo "Su email ya ha sido registrado anteriormente";
-				echo "<br><a href=\"index.php\" class=\"btn btn-danger\">Volver</a>";
-				exit();
+						
+						$datos->setEmail($_POST["email"]);
+				
 					}
 				
 			}elseif ($code==1) {
-				echo "Introduzca email";
-				echo "<br><a href=\"index.php\" class=\"btn btn-danger\">Volver</a>";
+				$mensaje= "Introduzca email";
+				setcookie('mensaje',$mensaje,"","/");
+				header("Location:".$_SERVER['HTTP_REFERER']);
 				exit();
 			}elseif ($code==2) {
-				echo "Su email no está bien escrito";
-				echo "<br><a href=\"index.php\" class=\"btn btn-danger\">Volver</a>";
+				$mensaje= "Su email no está bien escrito";
+				setcookie('mensaje',$mensaje,"","/");
+				header("Location:".$_SERVER['HTTP_REFERER']);
 				exit();
 			}
 			/*se valida la contraseña si devuelve codigo 0: se guarda la contraseña
@@ -168,31 +200,25 @@
 			if ($code==0) {
 				$datos->setContraseña($_POST["contraseña"]);
 			}elseif ($code==1) {
-				echo "Introduzca contraseña";
-				echo "<br><a href=\"index.php\" class=\"btn btn-danger\">Volver</a>";
+				$mensaje= "Introduzca contraseña";
+				setcookie('mensaje',$mensaje,"","/");
+				header("Location:".$_SERVER['HTTP_REFERER']);
 				exit();
 			}elseif ($code==2) {
-				echo "Su contraseña no está bien escrito";
-				echo "<br><a href=\"index.php\" class=\"btn btn-danger\">Volver</a>";
+				$mensaje= "Su contraseña no está bien escrita. Longitud mínima 8 carácteres con uso de mayúsculas, minúscular. números y carácteres especiales";
+				setcookie('mensaje',$mensaje,"","/");
+				header("Location:".$_SERVER['HTTP_REFERER']);
 				exit();
 			}
 			//Si todo lo anterior ha ido bien se registra el usuario
 			$code=$gestion->registrar($datos);
 			if ($code == 1) {
-				echo '<script language="javascript">';
-				echo 'alert("Usuario registrado")';
-				echo '</script>';
-			}else{
-				//si da el siguiente error, significa que el DNI está repetido con lo cual no se regitra.
-				$dni=$datos->getDni();
-				if ($code == "SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '".$dni."' for key 'PRIMARY'") {
-					echo "Dni ya registrado";
-					echo "<br><a href=\"index.php\" class=\"btn btn-danger\">Volver</a>";
-					exit();
-				}else{
-					echo $code;
-				}
+				$mensaje= "Usuario registrado correctamente";
+				setcookie('success',$mensaje,"","/");
 				
+			}else{
+				$mensaje= $code;
+				setcookie('mensaje',$mensaje,"","/");			
 			}
 			
 ?>

@@ -1,10 +1,13 @@
 <?php
-//añadimos la cabecera 
+ 
+
+//añadimos la cabecera
  include("Templates/Cabecera.php")
 ?>
 </div>
 <div class="container-fluid">
 <?php
+
 	//se comprueba si está logueado y el tipo de usuario 
 	if (isset($_SESSION['tipo'])) {
 		if ($_SESSION['tipo']=="Administrador") {
@@ -29,7 +32,7 @@
 						<th scope="col">Email</th>
 						<th scope="col">Contraseña</th>
 						<th scope="col">Tipo</th>
-						<th scope="col">Editar</th>
+						<th scope="col">Actualizar</th>
 						<th scope="col">Eliminar</th>
 					</tr>
 				</thead>
@@ -37,22 +40,29 @@
 					<?php
 						foreach ($usuarios as $key => $usuario) {?>
 							<tr>
-								<th><?php echo $usuario['Nombre']?></th>
-								<td><?php echo $usuario['Apellidos']?></td>
-								<td><?php echo $usuario['DNI']?></td>
-								<td><?php echo $usuario['Fecha_nac']?></td>
-								<td><?php echo $usuario['Telefono']?></td>
-								<td><?php echo $usuario['Direccion']?></td>
-								<td><?php echo $usuario['Provincia']?></td>
-								<td><?php echo $usuario['Localidad']?></td>
-								<td><?php echo $usuario['Cod_postal']?></td>
-								<td><?php echo $usuario['Email']?></td>
-								<td><?php echo $usuario['Contraseña']?></td>
-								<td><?php echo $usuario['Descripcion']?></td>
-							
-							<form action="Carrito/botones.php" method="POST">
+								<form action="Carrito/botones.php" method="POST">
+								<th><input type="text" class="form-control" name="Nombre" value="<?php echo $usuario['Nombre']?>" required></th>
+								<td><input type="text" class="form-control" name="Apellidos" value="<?php echo $usuario['Apellidos']?>" required></td>
+								<td><input type="hidden" class="form-control" name="DNI" required value="<?php echo $usuario['DNI']?>"><?php echo $usuario['DNI']?></td>
+								<td><input type="date" class="form-control" name="Fecha_nac" value="<?php echo $usuario['Fecha_nac']?>" required></td>
+								<td><input type="number" class="form-control" name="Telefono" value="<?php echo $usuario['Telefono']?>" required></td>
+								<td><input type="text" class="form-control" name="Direccion" value="<?php echo $usuario['Direccion']?>" required></td>
+								<td><input type="text" class="form-control" name="Provincia" value="<?php echo $usuario['Provincia']?>" required></td>
+								<td><input type="text" class="form-control" name="Localidad" value="<?php echo $usuario['Localidad']?>" required></td>
+								<td><input type="number" class="form-control" name="Cod_postal" value="<?php echo $usuario['Cod_postal']?>" required></td>
+								<td><input type="text" name="Email" value="<?php echo $usuario['Email']?>" required class="form-control"></td>
+								<td><input type="text" class="form-control" name="Contraseña" value="<?php echo $usuario['Contraseña']?>" required >
+								</td>
 								<td>
-									<button class="btn btn-warning " name="Usuarios" value="Editar" type="submit">Editar</button>
+									<select name="Tipo">
+										<option selected value="<?php echo $usuario['Descripcion']?>"><?php echo $usuario['Descripcion']?></option>
+										<option value="Cliente">Cliente</option>
+										<option value="Administrador">Administrador</option>
+	 								</select></td>
+							
+							
+								<td>
+									<button class="btn btn-warning " name="Usuarios" value="Actualizar" type="submit">Actualizar</button>
 								</td>
 								<td>
 									<button class="btn btn-danger " name="Usuarios" value="Eliminar" type="submit">Eliminar</button>
@@ -60,15 +70,83 @@
 							</form>
 							</tr>
 					<?php } ?>
+					<tr>
+								<form action="Carrito/botones.php" method="POST">
+								<th><input type="text" class="form-control" name="Nombre" required></th>
+								<td><input type="text" class="form-control" name="Apellidos"  required></td>
+								<td><input type="text" class="form-control" name="DNI" required></td>
+								<td><input type="date" class="form-control" name="Fecha_nac" required></td>
+								<td><input type="number" class="form-control" name="Telefono" required></td>
+								<td><input type="text" class="form-control" name="Direccion" required></td>
+								<td><input type="text" class="form-control" name="Provincia" required></td>
+								<td><input type="text" class="form-control" name="Localidad" required></td>
+								<td><input type="number" class="form-control" name="Cod_postal" required></td>
+								<td><input type="text" name="Email" required class="form-control"></td>
+								<td><input type="text" class="form-control" name="Contraseña" required="" >
+								</td>
+								<td>
+									<select name="Tipo">
+										<option selected ></option>
+										<option value="Cliente">Cliente</option>
+										<option value="Administrador">Administrador</option>
+	 								</select>
+	 							</td>
+							
+							
+								<td></td>
+								<td>
+									<button class="btn btn-success " name="Usuarios" value="Nuevo" type="submit">Añadir</button>
+								</td>
+							</form>
+							</tr>
 					
 				</tbody>
 			</table>
+
 <?php 
+		if (isset($_SESSION['mensaje']) && !empty($_SESSION['mensaje']) ) {?>
+			<div class="alert alert-primary" role="alert">
+  				<?php echo $_SESSION['mensaje']; 
+  				$_SESSION['mensaje']="";
+  				?>
+			</div>
+			
+		<?php }
 		}else{
-		echo "Acceso no permitido, debes de ser administrador";
+			//si no eres administrador
+		header("Location: index.php");
 		}
 	}else{
-		echo "Acceso no permitido, debes de ser administrador";
+		//si no estas logueado
+		?>
+		<div class="container ">
+			<div class="row justify-content-center mt-5">
+			<div class="col-5 border rounded border-dark">
+				<div class="row">
+					<div class="col-12 bg-primary p-3 text-white">
+						<h4>Debes de iniciar sesión para continuar en esta página</h4>
+					</div>
+					
+				</div>
+				<div class="row">
+					<div class="col-12 p-3">
+						<form class="validar" validate method="POST" action="Carrito/botones.php">
+							<div class="form-group">
+								<label for="email">Email</label>
+								<input type="email" class="form-control" name="email" id="email" placeholder="Introduce tu email" required pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+							</div>
+							<div class="form-group">
+								<label for="contraseña">Contraseña:</label>
+								<input type="password" class="form-control" name="contraseña" id="contraseña" placeholder="Introduce tu contraseña" required pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$">
+							</div>
+							<input class="btn btn-primary " value="Iniciar" type="submit" name="opcion">
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+		<?php
 	}
 ?>
 </div>
