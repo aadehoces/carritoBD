@@ -12,7 +12,7 @@
 	if (isset($_SESSION['tipo'])) {
 		if ($_SESSION['tipo']=="Administrador") {
 			$db=Db::conectar();
-			$sentencia=$db->prepare("SELECT * FROM " .BD.".usuarios join " .BD.".Rol using (id_Rol) ");
+			$sentencia=$db->prepare("SELECT * FROM " .BD.".usuarios join " .BD.".rol using (id_Rol) ");
 			$sentencia->execute();
 			$usuarios=$sentencia->fetchAll(PDO::FETCH_ASSOC);
 			//si es administrador se muestra la pagina?>
