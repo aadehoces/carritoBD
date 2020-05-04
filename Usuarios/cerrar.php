@@ -10,7 +10,7 @@
 	$_SESSION = array();
 	//borramos la cookie de session
 	if(isset($_COOKIE[session_name()])) { 
-		setcookie(session_name(),'', time() - 42000, '/');
+		setcookie('id','', time() - 42000, '/');
 	}
 
 	

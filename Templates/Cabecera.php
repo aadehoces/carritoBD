@@ -5,7 +5,12 @@ ob_start();
 include 'Global/config.php';
 include 'Global/conexion.php';
 //renaudamos session
-session_start();
+if (isset($_COOKIE['id'])) {
+	session_id($_COOKIE['id']);
+	session_start();
+}
+
+
 
 
 ?>
@@ -132,6 +137,7 @@ session_start();
 								//si tenemos creada una session añadimos la plantilla de cerrar sesion que contiene un boton para cerrar session
 								if (isset($_SESSION['tipo'])) {
 									include ("Templates/Cerrar_sesion.php");
+									
 								//si no tenemos creada la sesion añadimos la plantilla de iniciar sesion que contine un boton para iniciar sesion y otro para registrarse
 								}else{
 									include ("Templates/Iniciar_Sesion.php");
