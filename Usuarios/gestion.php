@@ -92,5 +92,37 @@
 					}
 				}
 		}
+
+		public function consulta($datos,$email){
+			$db=Db::conectar();
+			$select=$db->query("SELECT Direccion, Provincia, Localidad, Cod_postal FROM " .BD.".usuarios where Email = '$email'" );
+			foreach($select->fetchAll() as $key => $value){
+					$datos->setDireccion($value['Direccion']);
+					$datos->setProvincia($value['Provincia']);
+					$datos->setLocalidad($value['Localidad']);
+					$datos->setPostal($value['Cod_postal']);
+			}
+		}
+
+		public function actualizarDireccion($datos,$email){
+			$db=Db::conectar();
+			try {
+				$actualizar=$db->prepare("UPDATE " .BD.".usuarios SET Direccion=:Direccion where Email = '$email'");
+				$actualizar->bindValue('Direccion',$datos->getDireccion());
+				$actualizar->execute();
+				$actualizar=$db->prepare("UPDATE " .BD.".usuarios SET Provincia=:Provincia where Email = '$email'");
+				$actualizar->bindValue('Provincia',$datos->getProvincia());
+				$actualizar->execute();
+				$actualizar=$db->prepare("UPDATE " .BD.".usuarios SET Localidad=:Localidad where Email = '$email'");
+				$actualizar->bindValue('Localidad',$datos->getLocalidad());
+				$actualizar->execute();
+				$actualizar=$db->prepare("UPDATE " .BD.".usuarios SET Cod_postal=:Cod_postal where Email = '$email'");
+				$actualizar->bindValue('Cod_postal',$datos->getPostal());
+				$actualizar->execute();
+				return 1;
+			} catch (Exception $e) {
+				return $e->getMessage();
+			}
+		}
 	}
 ?>

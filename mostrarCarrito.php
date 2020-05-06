@@ -44,9 +44,9 @@
 					<td></td>
 					<td><h4>Total</h4></td>
 					<td><h4><?php echo number_format($total,2);?>€</h4></td>
-					<form action="Carrito/botones.php" method="post">
+					<form action="pago.php" method="post">
 						<td>
-						<button class="btn btn-primary" data-toggle="popover" data-trigger="hover" data-content="Inicia sesión para continuar" type="submit" name="" value="Tramitar">Tramitar Pedido
+						<button class="btn btn-primary" data-toggle="popover" data-trigger="hover" data-content="Inicia sesión para continuar" type="submit" name="Pago" value="Tramitar">Tramitar Pedido
 						</button>
 						</td>
 					</form>
@@ -106,11 +106,7 @@
 						<td><h4>Total</h4></td>
 						<td><h4><?php echo number_format($total,2);?>€</h4></td>
 						<td>
-							
-								<button onclick="return false;" class="btn btn-primary disabled" rel="popover" data-toggle="popover" data-trigger="hover" data-content="Inicia sesión para continuar" type="submit" name="" value="Tramitar" >
-								Tramitar Pedido
-								</button>
-							
+							Inicia sesión para pagar							
 						</td>
 					</tr>
 				 

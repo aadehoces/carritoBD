@@ -212,6 +212,7 @@ include '../Global/conexion.php';
 				header("Location:".$_SERVER['HTTP_REFERER']);
 			}
 		}
+		
 	}
 ob_end_flush();
 ?>
