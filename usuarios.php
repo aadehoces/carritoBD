@@ -56,8 +56,17 @@
 								<td>
 									<select name="Tipo">
 										<option selected value="<?php echo $usuario['Descripcion']?>"><?php echo $usuario['Descripcion']?></option>
-										<option value="Cliente">Cliente</option>
-										<option value="Administrador">Administrador</option>
+										<?php
+											if ($usuario['Descripcion']!="Cliente") {?>
+												<option value="Cliente">Cliente</option>
+											<?php }
+
+											if ($usuario['Descripcion']!="Administrador") {?>
+												<option value="Administrador">Administrador</option>
+											<?php }
+										?>
+										
+										
 	 								</select></td>
 							
 							

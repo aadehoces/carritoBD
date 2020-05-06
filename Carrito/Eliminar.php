@@ -15,15 +15,15 @@ if (isset($_SESSION['tipo'])) {
 	//si no se ha iniciado sesion se guarda el contenido de la cookie carrito en una variable y se borra la cookie
 	$data=unserialize($_COOKIE['CARRITO'],["allowed_classes" => true]);
 	setcookie('CARRITO',serialize($data),time()-30000,"/");
-	//se busca el prodcuto en la variable y se borra
+	//si el producto no es el que queremos eliminar se vuelve a meter en data2 para añadirlo a la cookie
 	foreach($data as $indice => $producto){
-		if($producto['ID']==$ID){
-			unset($data[$indice]);
+		if($producto['ID']!=$ID){
+			$data2[count($data2)]=$producto;
 		}
 	}
 	//si la variable no queda vacia se vuelve a crear la cookie carrito
-	if (!empty($data)) {
-		setcookie('CARRITO',serialize($data),time()+30000,"/");
+	if (!empty($data2)) {
+		setcookie('CARRITO',serialize($data2),time()+30000,"/");
 	}	
 }
 ?>

@@ -36,9 +36,20 @@
 								<th>
 									<select class="form-control" name="Categoria">
 										<option selected  value="<?php echo $producto['Categoria']?>"><?php echo $producto['Categoria']?></option>
-										<option value="Sobremesa">Sobremesa</option>
-										<option value="Portatil">Portatil</option>
-										<option value="Movil">Movil</option>
+										<?php
+											if ($producto['Categoria']!="Sobremesa") {?>
+												<option value="Sobremesa">Sobremesa</option>
+										<?php }?>
+										<?php
+											if ($producto['Categoria']!="Portatil") {?>
+												<option value="Portatil">Portatil</option>
+										<?php }?>
+										<?php
+											if ($producto['Categoria']!="Movil") {?>
+												<option value="Movil">Movil</option>
+										<?php }?>
+										
+										
 	 								</select>
 								</th>
 								<th><input type="hidden" name="MAX_FILE_SIZE" value="512000" />

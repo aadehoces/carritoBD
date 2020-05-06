@@ -17,7 +17,7 @@
 				  <th scope="col">Cantidad</th>
 				  <th scope="col">Precio</th>
 				  <th scope="col">Total</th>
-				  <th scope="col">---</th>
+				  <th scope="col"></th>
 				</tr>
 			  </thead>
 			  <tbody>
@@ -31,14 +31,28 @@
 						<form action="Carrito/botones.php" method="post">
 				
 							<input type="hidden" name="id" id="id" value="<?php echo openssl_encrypt($producto['ID'],COD,KEY);?>">
-							<button class="btn btn-primary" type="submit" name="btnaccion" value="Eliminar">Eliminar</button>
+							<button class="btn btn-danger" type="submit" name="btnaccion" value="Eliminar">Eliminar</button>
 				
 						</form>
+						<?php $total=$total+($producto['PRECIO']*$producto['CANTIDAD']);?>
 					</td>
 				</tr>
-			
+				
 			<?php } ?>
-			  </tbody>
+				<tr>
+					<td></td>
+					<td></td>
+					<td><h4>Total</h4></td>
+					<td><h4><?php echo number_format($total,2);?>€</h4></td>
+					<form action="Carrito/botones.php" method="post">
+						<td>
+						<button class="btn btn-primary" data-toggle="popover" data-trigger="hover" data-content="Inicia sesión para continuar" type="submit" name="" value="Tramitar">Tramitar Pedido
+						</button>
+						</td>
+					</form>
+
+				</tr>
+			  </tbody> 
 			</table>
 <?php        
 		}else{
@@ -62,9 +76,10 @@
 					  <th scope="col">Cantidad</th>
 					  <th scope="col">Precio</th>
 					  <th scope="col">Total</th>
-					  <th scope="col">---</th>
+					  <th scope="col"></th>
 					</tr>
 				  </thead>
+				   <tbody>
 					  <?php
 					  
 					  foreach ($data as $key => $producto) {?>
@@ -72,24 +87,35 @@
 						<th scope="row"><?php echo $producto['NOMBRE']; ?></th>
 						<td><?php echo $producto['CANTIDAD']; ?></td>
 						<td><?php echo $producto['PRECIO']; ?>€</td>
-						<td><?php echo number_format($producto['PRECIO']*$producto['CANTIDAD'],2) ; ?></td>
+						<td><?php echo number_format($producto['PRECIO']*$producto['CANTIDAD'],2) ; ?>€</td>
 						<td>
 							<form action="Carrito/botones.php" method="post">
 					
 								<input type="hidden" name="id" id="id" value="<?php echo openssl_encrypt($producto['ID'],COD,KEY);?>">
-								<button class="btn btn-primary" type="submit" name="btnaccion" value="Eliminar">Eliminar</button>
+								<button class="btn btn-danger" type="submit" name="btnaccion" value="Eliminar">Eliminar</button>
 					
 							</form>
+							 <?php $total=$total+($producto['PRECIO']*$producto['CANTIDAD']);?>
 						</td>
 					</tr>
 		
 				  <?php }?>
-				  <tbody>
+					<tr>
+						<td></td>
+						<td></td>
+						<td><h4>Total</h4></td>
+						<td><h4><?php echo number_format($total,2);?>€</h4></td>
+						<td>
+							
+								<button onclick="return false;" class="btn btn-primary disabled" rel="popover" data-toggle="popover" data-trigger="hover" data-content="Inicia sesión para continuar" type="submit" name="" value="Tramitar" >
+								Tramitar Pedido
+								</button>
+							
+						</td>
+					</tr>
+				 
 					 </tbody>
 				</table>
-				<div class="alert alert-primary" role="alert">
-					Inicia Sesión para pagar...
-				</div>
 	<?php    	}else{
 				//si no hay productos en la cookie carrito se muestra lo siguiente:
 					echo "No hay prductos en el carrito";
@@ -100,6 +126,11 @@
 		}
 	}
 ?>
+<script>
+	$(function () {
+		$('[data-toggle="popover"]').popover()
+	})
+</script>
 <?php
 //añadimos el pie de página
  include("Templates/Pie.php")

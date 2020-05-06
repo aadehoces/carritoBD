@@ -2,7 +2,10 @@
 	//comprobamos si el carrito está declarado
 	if (isset($_SESSION['CARRITO'])) {
 		//si está declarado guardamos el contenido en una cookie
-		setcookie('CARRITO',serialize($_SESSION['CARRITO']),time()+30000,"/");
+		foreach($_SESSION['CARRITO'] as $indice => $producto){
+			$data[count($data)]=$producto;
+		}
+		setcookie('CARRITO',serialize($data),time()+30000,"/");
 	}
 	//destruimos sesion
 	session_destroy();
