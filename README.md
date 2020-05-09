@@ -3,7 +3,7 @@ Proyecto de una tienda con carrito
 
 Realizado:
 
-  Reordenar el html hecho en varios php para introducirle el php. (Duración: 1 hora)
+  Reordenar el html hecho en varios php para introducirle el php. (Duración: 1 hora).
   Registro y login de usuarios. Habrá tres tipos de usuarios: (Duración 4 horas)
     Invitados: usuarios que no estén logeados. Podrán añadir cosas al carrito, pero no comprar
     Registrados: usuarios que se logueen. Podrán añadir productos al carrito y comprarlos
