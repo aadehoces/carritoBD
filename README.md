@@ -9,15 +9,12 @@ Realizado:
     Registrados: usuarios que se logueen. Podrán añadir productos al carrito y comprarlos
     Administradores: administraran productos y usuarios.
   Mostrar productos por categorías y creación del carrito (Duración 6 horas)
-  Página de administración de usuarios y productos (solo acceden administradores) (Duracion 6 horas)
-
-
-Aún sin realizar:
-
+  Página de administración de usuarios y productos (solo acceden administradores) (Duracion 8 horas)
   Crear forma de pago (solo acceden usuarios registrados) (Duración aprox 4 horas)
   Imprimir pdf (Duración aprox 2 horas)
   Pago con paypal o tarjeta (Duración aprox 4 horas)
-  Convertir en https (Duración aprox 2 horas)
+
+
 
 Estructura:
   Ficcheros que se encuentra en la raiz del proyecto: páginas que componen el sitio web
@@ -28,6 +25,7 @@ Estructura:
   Directorio "img": imágenes de la página
   Directorio "Templates": Plantillas usadas en la página
   Directorio "Usuarios": Funciones relacionadas con el registro y el inicio de sesión del usuario
+  Directorio "pdf": Funciones para la creación de un pdf con el recibo
 
 Hosting
 http://localhost/carritoBD/index.php

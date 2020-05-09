@@ -13,7 +13,7 @@
 			$sentencia->execute();
 			$productos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
 			//si es administrador se muestra la pagina?>
-			<h4>Usuarios</h4>
+			<h4>Productos</h4>
 			<table class="table table-striped text-center">
 				<thead>
 					<tr>

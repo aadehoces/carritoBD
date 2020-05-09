@@ -50,7 +50,7 @@ include '../Global/conexion.php';
 			//comprobamos si le hemos dado al boton de eliminar productos de administracion
 			if ($_POST['Productos']=="Eliminar") {
 				//guardamos la id y llamamos a la funcion de eliminar
-				$code=$administra->eliminar($_POST['id']);
+				$code=$administra->eliminar($_POST['Id']);
 				$_SESSION['mensaje']= "$code";
 				header("Location:".$_SERVER['HTTP_REFERER']);
 			//comprobamos si le hemos dado al boton de actualizar productos de administracion

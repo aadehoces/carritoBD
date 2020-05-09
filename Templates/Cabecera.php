@@ -40,6 +40,8 @@ if (isset($_COOKIE['id'])) {
 	<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
 	<meta name="theme-color" content="#ffffff">
 	<script src="https://kit.fontawesome.com/f0417ae4ab.js" crossorigin="anonymous"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 </head>
 
 <body>

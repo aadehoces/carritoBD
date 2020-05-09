@@ -21,7 +21,10 @@
 				</tr>
 			  </thead>
 			  <tbody>
-			<?php foreach($_SESSION['CARRITO'] as $indice=>$producto){?>
+
+			<?php
+				//se muestran los productos 
+				foreach($_SESSION['CARRITO'] as $indice=>$producto){?>
 				<tr>
 					<th scope="row"><?php echo $producto['NOMBRE']; ?></th>
 					<td><?php echo $producto['CANTIDAD']; ?></td>
@@ -43,7 +46,9 @@
 					<td></td>
 					<td></td>
 					<td><h4>Total</h4></td>
-					<td><h4><?php echo number_format($total,2);?>€</h4></td>
+					<td><h4><?php 
+					$_SESSION['total']=$total;
+					echo number_format($total,2);?>€</h4></td>
 					<form action="pago.php" method="post">
 						<td>
 						<button class="btn btn-primary" data-toggle="popover" data-trigger="hover" data-content="Inicia sesión para continuar" type="submit" name="Pago" value="Tramitar">Tramitar Pedido
@@ -54,6 +59,7 @@
 				</tr>
 			  </tbody> 
 			</table>
+
 <?php        
 		}else{
 			//si está vacio se muestra lo siguiente
@@ -122,11 +128,7 @@
 		}
 	}
 ?>
-<script>
-	$(function () {
-		$('[data-toggle="popover"]').popover()
-	})
-</script>
+
 <?php
 //añadimos el pie de página
  include("Templates/Pie.php")

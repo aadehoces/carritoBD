@@ -31,6 +31,9 @@ if ($code==1) {
 		}
 		//comprobamos el tipo de usuario
 		$gestion->definirTipo($datos);
+		//guardamos el dni
+		$gestion->definirDNI($datos);
+		$_SESSION['dni']=$datos->getDni();
 		//se guarda el email en la variable de session email
 		$_SESSION['email']=$datos->getEmail();
 		//se guarda la contraseña en la variable de session contraseña

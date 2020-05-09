@@ -7,9 +7,14 @@
 
 		public function eliminar($id){
 			$db=Db::conectar();
-			$eliminar=$db->prepare('DELETE FROM Productos WHERE id_Productos=:id');
-			$eliminar->bindValue('id',$id);
-			$eliminar->execute();
+			try {
+				$eliminar=$db->prepare('DELETE FROM Productos WHERE id_Productos=:id');
+				$eliminar->bindValue('id',$id);
+				$eliminar->execute();
+			} catch (Exception $e) {
+				return $e->getMessage();
+			}
+			
 		}
 
 		public function actualizar($crud_productos){

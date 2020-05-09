@@ -59,9 +59,18 @@
 			$db=Db::conectar();
 			$email=$datos->getEmail();
 			$contraseña=$datos->getContraseña();
-			$select=$db->query("SELECT Descripcion FROM " .BD.".usuarios join " .BD.".rol using (id_Rol) where email = '$email' and contraseña = '$contraseña'");
+			$select=$db->query("SELECT Descripcion FROM " .BD.".usuarios join " .BD.".Rol using (id_Rol) where email = '$email' and contraseña = '$contraseña'");
 			foreach($select->fetchAll() as $key => $value){
 					$datos->setTipo($value[0]);
+				}
+		}
+		public function definirDNI($datos){
+			$db=Db::conectar();
+			$email=$datos->getEmail();
+			$contraseña=$datos->getContraseña();
+			$select=$db->query("SELECT DNI FROM " .BD.".usuarios where email = '$email' and contraseña = '$contraseña'");
+			foreach($select->fetchAll() as $key => $value){
+					$datos->setDNI($value[0]);
 				}
 		}
 
